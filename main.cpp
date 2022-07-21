@@ -13,6 +13,7 @@ void makeCoffe(string name, double price, double balance);
 void progress();
 bool checkCups();
 bool checkBalance(double price, double balance);
+void addSugar();
 
 int main() {
 	
@@ -30,19 +31,30 @@ int main() {
 		
 		if (choice == 1) {
 			balance += insertCoin(priceEspresso);
+			system("CLS");
 		} else if (choice == 2) {
 			makeCoffe("Espresso", priceEspresso, balance);
+			balance = 0;
+			Sleep(5000);
+			system("CLS");
 		} else if (choice == 3) {
 			makeCoffe("Cappucino", priceCappucino, balance);
+			balance = 0;
+			Sleep(5000);
+			system("CLS");
 		} else if (choice == 4) {
 			makeCoffe("Latte", priceLatte, balance);
+			balance = 0;
+			Sleep(5000);
+			system("CLS");
 		} else if (choice == 5) {
 			
-		} else if (choice == 6) {
-			cout << "Thank you for your purchase!";
-			break;
-		} else 
+		} else {
 			cout << "Error! Incorrect input. Please, enter of of the options listed bellow";
+			Sleep(3000);
+			system("CLS");
+		}
+			
 	}
 
 	return 0;
@@ -55,7 +67,6 @@ void printMenu() {
 	cout << "3. Cappuccino" << "\t" << priceCappucino << " BYN" << endl;
 	cout << "4. Latte" << "\t" << priceLatte << " BYN" << endl;
 	cout << "5. Service menu" << endl;
-	cout << "6. Exit" << endl;
 	cout << "-----------------------" << endl;
 }
 
@@ -63,19 +74,19 @@ double insertCoin(double price) {
 	double balance = 0.0;
 	cout << "Deposit: ";
 	cin >> balance;
-	if ( balance > 2) //and balance < 10)
-		//cout << "Machine only accepts coins";
+	if (balance >= 10) 
 		balance /= 100;
 	return balance;
 }
 
-
 void makeCoffe(string name,  double price, double balance) {
+	system("CLS");
 	if (checkCups() and checkBalance(price, balance)){
 		cout << "Your coffee is being prepared, please wait a bit..." << endl;
 		progress();
 		cout << "Now, take your "<< name << "." << endl;
 	    cout << "Have a nice day!" << endl;
+	    cups--;
 	} else if (!checkCups()){
 		cout << "Currently, we are out of cups." << endl;
 		cout << "Please call customer service." << endl;
@@ -119,5 +130,16 @@ bool checkBalance(double balance, double price) {
 		return true;
 	}
 }
+
+void addSugar() {
+	int sugar = 0;
+	cout << "Some sugar?" << endl;
+	cout << "Enter, how many sugar do you want?";
+	cin >> sugar;
+}
 	
+	
+//предупреждение об отсутствии стаканчиков должно появиться до внесения денег
+//может пользователь внести большую сумму а потом несколько раз закать или баланс обнуляется после заказа
+//Что с сахаром?
 
