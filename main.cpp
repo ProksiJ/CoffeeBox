@@ -35,8 +35,6 @@ int main() {
 	int choice = 0;
 	double balance = 0.0;
 	double cash = 0.0;
-	string error = "";
-	string name = "Espresso";
 
 	while(true) {
 		cout << endl << endl;
@@ -46,8 +44,16 @@ int main() {
 		cin >> choice;
 		
 		if (choice == 1) {
-			balance += insertCoin(priceEspresso);
-			system("CLS");
+			if (checkCups()) {
+				balance += insertCoin(priceEspresso);
+				system("CLS");
+			} else {
+				cout << "Currently, we are out of cups." << endl;
+				cout << "Please call customer service." << endl;
+				Sleep(3000);
+				system("CLS");
+			}
+			
 		} else if (choice == 2) {
 			makeCoffe("Espresso", priceEspresso, balance);
 			cash += balance;
@@ -130,7 +136,7 @@ void printMenu() {
 
 double insertCoin(double price) {
 	double balance = 0.0;
-	cout << "Deposit: ";
+	cout << "Deposited money: ";
 	cin >> balance;
 	if (balance >= 10) 
 		balance /= 100;
@@ -138,19 +144,16 @@ double insertCoin(double price) {
 }
 
 void makeCoffe(string name,  double price, double balance) {
-	system("CLS");
-	if (checkCups() and checkBalance(price, balance)){
+
+	if (checkBalance(price, balance)){	
+		system("CLS");
 		cout << "Your coffee is being prepared, please wait a bit..." << endl;
 		progress();
 		cout << "Now, take your "<< name << "." << endl;
 	    cout << "Have a nice day!" << endl;
 	    cups--;
-	} else if (!checkCups()){
-		cout << "Currently, we are out of cups." << endl;
-		cout << "Please call customer service." << endl;
 	} else 
 		cout << "Insufficient balance. Please, insert coins...";
-	
 }
 
 void progress() {
@@ -293,7 +296,3 @@ bool addCups()
         cups += additionCups;
     return true;
 }
-//предупреждение об отсутствии стаканчиков должно появиться до внесения денег
-//может пользователь внести большую сумму а потом несколько раз закать или баланс обнуляется после заказа
-//Что с сахаром?
-
