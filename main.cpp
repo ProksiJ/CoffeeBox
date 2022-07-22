@@ -3,6 +3,7 @@
 #include <iomanip>
 using namespace std;
 
+double cash = 0.0;
 int cups = 7;
 const int sleepTime = 3000;
 const double ESPRESSO_PRICE = 1;
@@ -24,14 +25,14 @@ void addSugar();
 void printErrorInput();
 void printOutOfCups();
 
-void serviceMod(double cash);
+void serviceMod();
 bool logInServiceMod();
 bool enteringServiceMod();
 int enterPIN();
 bool checkPIN(int pin);
 void printServiceMenuHeader();
 void printServiceEnterHeader();
-void printChoiceServiceMenu(double cash);
+void printChoiceServiceMenu();
 void printFooter();
 void printWithdrawingCash();
 void printCupsInfo();
@@ -39,8 +40,7 @@ bool addCups();
 
 int main() {
 	int choice = 0;
-	double inputMoney = 0.0;
-	double cash = 0.0;		
+	double inputMoney = 0.0;		
 	double balance = 0.0;
 
 	while(true) {
@@ -75,7 +75,7 @@ int main() {
 			if (!logInServiceMod()){
 				return 0;
 			}else{
-				serviceMod(cash);
+				serviceMod();
 			}
 		} else
 			printErrorInput();	
@@ -255,14 +255,14 @@ bool logInServiceMod()
 	return true;
 }
 
-void serviceMod(double cash)
+void serviceMod()
 {
 	int serviceChoice = 0;
 	
 	while (true) 
 	{
 		printServiceMenuHeader();
-		printChoiceServiceMenu(cash);
+		printChoiceServiceMenu();
 		printFooter();
 		cin >> serviceChoice;
 
@@ -326,7 +326,7 @@ void printFooter()
 {
     cout << "------------------" << endl;
 }
-void printChoiceServiceMenu(double cash) {
+void printChoiceServiceMenu() {
     cout << "Current amount of cups: " << cups << endl;
     cout << "Accumulated cash: " << setprecision(2) << cash << " BYN" << endl;
     cout << "Please, choose an option: " << endl;
