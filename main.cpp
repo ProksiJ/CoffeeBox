@@ -276,7 +276,7 @@ void serviceMod()
     		printCupsInfo();
     		while(!addCups()){
             	printServiceMenuHeader();
-            	cout << "WARNING: The amount of cups cannot be more than " << MAXCUPS - cups << " and less or equal zero." << endl;
+            	cout << "WARNING: The amount of addition cups cannot be more than " << MAXCUPS - cups << " and less or equal zero." << endl;
             	printCupsInfo();
 			}
 		}		
@@ -358,12 +358,14 @@ void printCupsInfo()
 bool addCups() 
 {
     int additionCups = 0;
-    
+    cout << "Enter amount of cups you want to put to coffee machine: ";
     cin >> additionCups;
-
+	
     if (additionCups + cups > MAXCUPS or additionCups <= 0)
         return false;
-    else
-        cups += additionCups;
-    return true;
+    cups += additionCups;
+    cout << "Cups succesfully added." << endl;
+    cout << "Returning to service menu..." << endl;
+    Sleep(sleepTime);
+	return true;
 }
