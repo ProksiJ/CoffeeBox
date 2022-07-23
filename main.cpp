@@ -3,6 +3,7 @@
 #include <iomanip>
 using namespace std;
 
+double cash = 0.0;
 int cups = 7;
 const int sleepTime = 3000;
 const double ESPRESSO_PRICE = 1;
@@ -24,14 +25,14 @@ void addSugar();
 void printErrorInput();
 void printOutOfCups();
 
-void serviceMod(double cash);
+void serviceMod();
 bool logInServiceMod();
 bool enteringServiceMod();
 int enterPIN();
 bool checkPIN(int pin);
 void printServiceMenuHeader();
 void printServiceEnterHeader();
-void printChoiceServiceMenu(double cash);
+void printChoiceServiceMenu();
 void printFooter();
 void printWithdrawingCash();
 void printCupsInfo();
@@ -39,8 +40,7 @@ bool addCups();
 
 int main() {
 	int choice = 0;
-	double inputMoney = 0.0;
-	double cash = 0.0;		
+	double inputMoney = 0.0;		
 	double balance = 0.0;
 
 	while(true) {
@@ -75,7 +75,7 @@ int main() {
 			if (!logInServiceMod()){
 				return 0;
 			}else{
-				serviceMod(cash);
+				serviceMod();
 			}
 		} else
 			printErrorInput();	
@@ -255,14 +255,14 @@ bool logInServiceMod()
 	return true;
 }
 
-void serviceMod(double cash)
+void serviceMod()
 {
 	int serviceChoice = 0;
 	
 	while (true) 
 	{
 		printServiceMenuHeader();
-		printChoiceServiceMenu(cash);
+		printChoiceServiceMenu();
 		printFooter();
 		cin >> serviceChoice;
 
@@ -276,7 +276,7 @@ void serviceMod(double cash)
     		printCupsInfo();
     		while(!addCups()){
             	printServiceMenuHeader();
-            	cout << "WARNING: The amount of cups cannot be more than " << MAXCUPS - cups << " and less or equal zero." << endl;
+            	cout << "WARNING: The amount of addition cups cannot be more than " << MAXCUPS - cups << " and less or equal zero." << endl;
             	printCupsInfo();
 			}
 		}		
@@ -326,7 +326,7 @@ void printFooter()
 {
     cout << "------------------" << endl;
 }
-void printChoiceServiceMenu(double cash) {
+void printChoiceServiceMenu() {
     cout << "Current amount of cups: " << cups << endl;
     cout << "Accumulated cash: " << setprecision(2) << cash << " BYN" << endl;
     cout << "Please, choose an option: " << endl;
@@ -358,12 +358,14 @@ void printCupsInfo()
 bool addCups() 
 {
     int additionCups = 0;
-    
+    cout << "Enter amount of cups you want to put to coffee machine: ";
     cin >> additionCups;
-
+	
     if (additionCups + cups > MAXCUPS or additionCups <= 0)
         return false;
-    else
-        cups += additionCups;
-    return true;
+    cups += additionCups;
+    cout << "Cups succesfully added." << endl;
+    cout << "Returning to service menu..." << endl;
+    Sleep(sleepTime);
+	return true;
 }
